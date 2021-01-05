@@ -3,6 +3,13 @@
 #include <iostream>
 #include <vector>
 // Opravi go da e po hubavo
+void print(std::list<double> const &list)
+{
+    std::cout << std::endl;
+    for (auto const& i: list) {
+        std::cout << i << " ";
+    }
+}
 int main()
 {
     std::ifstream my_file;
@@ -16,7 +23,7 @@ int main()
         tokenizer.nextToken();
     }
     Evaluator something(tokenizer.getTokens());
-    something.displayStorage();
+    print(something.evaluate());
     my_file.close();
     return 0;
 }

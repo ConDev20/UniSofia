@@ -1,49 +1,21 @@
+#include "../tag_factory.h"
+#include "tag_map.h"
 #include <iostream>
-using namespace std;
-int mistery(int x)
+void print(std::list<double> const &list)
 {
-    if (x == 0) return 0;
-    if (x % 2) return 1+mistery(x-1);
-    return 2*mistery(x/2);
+    std::cout << std::endl;
+    for (auto const& i: list) {
+        std::cout << i << " ";
+    }
 }
 int main()
-    {
-
-cout << mistery(17);
+{
+    Tag* tag = new Tag_map("MAP-INC",2);
+    std::list<double> a;
+    a.push_back(1);
+    a.push_back(2);
+    a.push_back(3);
+    tag->appendList(a);
+    print(tag->get_result());
     return 0;
 }
-/*
-    tag* tag_factory(string)
-    {
-        if(string = )
-        {
-            tag* tag = new tag();
-        }
-    }
-
-
-
-    evaluate(tokenizer token)
-    {
-        Tokenizer::Token token = tokenizer.nextToken();
-        assert(token.type == open_par);
-        token = tokenizer.nextToken();
-        assert(token.type == oper);
-        tag* tag = new tag(token::type);
-        token = tokenizer.nextToken();
-        if(token. type == ")
-        {
-            token = tokenizer.nextToken();
-            tag.attribute = token.attribute;
-        }
-
-        if(token == oper)
-        {
-            tag* tag = new tag(token::type);
-        }
-
-    }
-
-
-
-*/

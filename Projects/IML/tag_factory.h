@@ -1,18 +1,44 @@
-#include "tag/base_tag.h" 
+#ifndef _TAG_FACTORY_
+#define _TAG_FACTORY_
+#include "tag/tag_agg.h"
+#include "tag/tag_map.h"
+#include "tag/tag_srt.h"
 #include "tokenizer.h"
 #include <cassert>
 class Factory_Tag
 {
     public:
-    Tag* createTag(std::string oper)
+    static Tag* createTag(std::string oper)
     {
-        if(oper == "MAP-INC" || oper == "MAP-MLT")
+        Tag* tag = nullptr;
+        std::string firstThree = oper.substr(0, 3);
+        if(firstThree == "SRT")
         {
-            // Tag* tag = new Tag_map(oper)
+            tag = new Tag_srt(oper,-1);  /// FIX THIS
+        } else if (firstThree == "AGG")
+        {
+            tag = new Tag_agg(oper);
         }
-
         
-        
-        
+        return tag;
     }
-}
+    static Tag* createAtrTag(std::string oper,std::string attribute)
+    {
+        Tag* tag = new Tag_srt(oper,attribute);
+        return tag;
+    }
+    static Tag* createNumAtrTag(std::string oper, double attribute)
+    {
+        Tag *tag = nullptr;
+        std::string firstThree = oper.substr(0, 3);
+        if(firstThree == "SRT")
+        {
+            tag = new Tag_srt (oper,attribute);
+        } else if (firstThree == "MAP")
+        {
+            tag = new Tag_map(oper, attribute);
+        }
+        return tag;
+    }
+};
+#endif

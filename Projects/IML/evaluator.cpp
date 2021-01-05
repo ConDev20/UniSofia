@@ -15,17 +15,13 @@ void Evaluator::displayStorage()
         std::cout << std::endl;
     }
 }
-void Evaluator::nextToken()
+void Evaluator::nextToken(Tokenizer::Token& token)
 {
-    // if(iter == storage.end())
-    // {
-    //     return;
-    // }
-    ++iter;
+    token = *(++iter);
 }
-void Evaluator::prevToken()
+void Evaluator::prevToken(Tokenizer::Token& token)
 {
-    --iter;
+    token = *(--iter);
 }
 /*
     expression := (Tag_expression|value),expression |  "" 
@@ -35,30 +31,65 @@ void Evaluator::prevToken()
     close_tag := "<", "/" ,string, ">";
     atribute := ' " ', value | string ,' " ';
 */
-std::list<double> Evaluator::evaluate ()
+void Evaluator::readOpenTag(Tag* operand)
+{
+        Tokenizer::Token token = *iter;
+        assert(token.type == Tokenizer::Token::openTag); // <
+        nextToken(token);
+        assert(token.type == Tokenizer::Token::oper);
+        std::string operType = token.text;
+        nextToken(token);
+        
+        if(token.type == Tokenizer::Token::doubleQuotes)
+        {
+            nextToken(token);
+            if(token.type == Tokenizer::Token::string)
+            {   
+                operand = Factory_Tag::createAtrTag(operType,token.text);
+            } else if(token.type == Tokenizer::Token::number) {
+                operand = Factory_Tag::createNumAtrTag(operType,token.numval);
+            } else { assert(false); } /// Problem with attribute input
+            nextToken(token);
+            assert(token.type == Tokenizer::Token::doubleQuotes);
+        }else{
+            prevToken(token);
+            operand = Factory_Tag::createTag(operType);
+        }
+        nextToken(token);
+        assert(token.type == Tokenizer::Token::closeTag);
+}
+std::list<double> Evaluator::evaluate()
 {
     Tokenizer::Token token = *iter;
     std::list<double> values;
     /// Reading close tag
+    if(iter == storage.end()) // Ne bi trqbvalo da vliza tuk
+    {
+        return values;
+    }
+    // Reading close tag
     if(token.type == Tokenizer::Token::openTag)
     {
-        nextToken();
+        nextToken(token);
         if(token.type == Tokenizer::Token::Slash)
         {
-            nextToken();
+            /// prevToken();
+            /// return values;
+            /// 
+            nextToken(token);
             assert(token.type == Tokenizer::Token::oper);
-            nextToken();
+            nextToken(token);
             assert(token.type == Tokenizer::Token::closeTag);
             return values;
         }else {
-            prevToken();
+            prevToken(token);
         }
     }
-    
+    // End of reading close tag
     if(token.type == Tokenizer::Token::number)
     {
         values.push_back(token.numval);
-        nextToken();
+        nextToken(token);
         for (double value : evaluate())
         {
             values.push_back(value);
@@ -66,35 +97,12 @@ std::list<double> Evaluator::evaluate ()
         return values;
     }
         /// Reading open tag
-        assert(token.type == Tokenizer::Token::openTag); // <
-        nextToken();
-        assert(token.type == Tokenizer::Token::oper);
-        std::string operType = token.text;
-        nextToken();
         Tag* operand;
-        if(token.type == Tokenizer::Token::doubleQuotes)
-        {
-            if(token.type == Tokenizer::Token::string)
-            {   
-                operand = // Suzday tag s factory podavayki string i string
-            } else if(token.type == Tokenizer::Token::number) {
-                operand = // Suzday tag s factory podavayji string i number
-            }else{ assert(false); } /// Problem with attribute input
-        }else{
-            /// suzday tag samo sus string ?
-        }
-        nextToken();
-        assert(token.type == Tokenizer::Token::closeTag);
-        nextToken();
+        readOpenTag(operand);
+        /// End of reading open tag
+        nextToken(token);
         operand->appendList(evaluate()); // 
-        values.splice(values.end(), evaluate()); // 
-        /// 
-        // Трябва да проверя дали това работи само за nested tags. 
-        // Ако 
-        return operand->get_result();
-        /// Ако са числа, push_back в листа на тага и след това append към values
-        /// Ако е '<' и следващия елемент не е '/' => evaluate()
-        /// Ako e letx, ще го мислим
-        /// Ако е </ => четене на close tag и вкарване в стек
+        values.splice(values.end(), operand->get_result());
+        delete operand;
+        return values;
 }
-// }

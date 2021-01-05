@@ -12,17 +12,11 @@ void Tokenizer::nextToken()
     }
     char c = in.peek();
     
-    if(std::isdigit(c))
+    if(std::isdigit(c) || c == '-')
     {
         result.type = Tokenizer::Token::number;
         in>>result.numval;
-        // isNumAttribute = false;
     }
-    //else if(std::isdigit(c) && !isNumAttribute)
-    // {
-    //     result.type = Tokenizer::Token::attribute;
-    //     in>>result.num_attribute;
-        
     else if(c == '<')
     {
         result.type = Tokenizer::Token::openTag;
@@ -35,19 +29,24 @@ void Tokenizer::nextToken()
     {
         result.type = Tokenizer::Token::Slash;
         result.text = in.get();//in >> result.c;
-    }else if(c == '"')
-    {
-        result.type = Tokenizer::Token::doubleQuotes;
-        result.text = in.get();//in >> result.c;
     }else if(c >= 65 && c <=90)
     {
-        result.type = Tokenizer::Token::string;
+        if(isString) {
+            result.type = Tokenizer::Token::string;
+        } else {
+            result.type = Tokenizer::Token::oper;
+        }
         result.text = "";
         while ((c >= 65 && c <=90) || c == '-')
         {
             result.text += in.get();
             c = in.peek();
         }
+    }else if(c == '"')
+    {
+        result.type = Tokenizer::Token::doubleQuotes;
+        result.text = in.get();//in >> result.c;
+        isString == false ? isString = true : isString = false;
     }else {
         assert(false);
     }

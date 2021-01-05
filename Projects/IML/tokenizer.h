@@ -32,6 +32,7 @@ class Tokenizer
     std::list<Tokenizer::Token> getTokens() const;
     private:
     std::list<Tokenizer::Token> storage;
+    bool isString = false;
     std::istream &in;
     void clearWhiteSpace();
 };

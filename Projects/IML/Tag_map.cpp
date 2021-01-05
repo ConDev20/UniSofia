@@ -1,24 +1,26 @@
-#include "tag_map.h"
+#include "tag/tag_map.h"
 
 std::list<double> Tag_map::get_result()
 {
+    calculate(type,attribute);
     return values;
 }
-void Tag_map::appendList(std::list<double>& tmp)
+Tag_map::Tag_map(std::string type, double attribute)
 {
-    values.splice(values.end(), tmp);
+    this->type = type;
+    this->attribute = attribute;
 }
-Tag_map::Tag_map(Type type, double attribute)
+void Tag_map::calculate(std::string type, double attribute)
 {
     std::list<double>::iterator iter;
-    if(type == MAP_INC)
+    if(type == "MAP-INC")
     {
         for (iter = values.begin(); iter != values.end(); ++iter)
         {
             *iter += attribute;
         }
         
-    }else if(type == MAP_MLT)
+    }else if(type == "MAP-MLT")
     {
         for (iter = values.begin(); iter != values.end(); ++iter)
         {

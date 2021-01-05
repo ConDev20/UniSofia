@@ -1,13 +1,13 @@
+#ifndef _TAG_AGG_
+#define _TAG_AGG
 #include "base_tag.h"
-enum Type 
+class Tag_agg : public Tag
 {
-    SUM,
-    PRO,
-    AVG,
-    FST,
-    LST
+    public:
+    std::list<double> get_result();
+    Tag_agg(std::string type);
+    private:
+    std::string type;
+    std::list<double> calculate(std::string type);
 };
-class Tag_agg : private Tag
-{
-
-};
+#endif
