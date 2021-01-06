@@ -8,7 +8,6 @@ class Tag_map : public Tag
     std::list<double> get_result();
     Tag_map(std::string type, double attribute);
     private:
-    std::string type;
     double attribute;
     void calculate(std::string type, double attribute);
 };

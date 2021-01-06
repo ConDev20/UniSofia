@@ -1,4 +1,3 @@
 
-<SRT-DST><SRT-SLC "3">57 18 9<MAP-INC "-3">4 2 2</MAP-INC></SRT-SLC></SRT-DST>
-
+<MAP-INC "1">  1 2 3  </MAP-INC> <MAP-MLT "1">  1 2 3  </MAP-INC>
 

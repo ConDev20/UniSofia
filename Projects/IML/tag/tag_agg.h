@@ -7,7 +7,6 @@ class Tag_agg : public Tag
     std::list<double> get_result();
     Tag_agg(std::string type);
     private:
-    std::string type;
     std::list<double> calculate(std::string type);
 };
 #endif

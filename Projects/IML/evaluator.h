@@ -13,9 +13,19 @@ class Evaluator
     private:
     std::list<Tokenizer::Token> storage;
     std::list<Tokenizer::Token>::iterator iter;
-    void nextToken(Tokenizer::Token& token);
-    void prevToken(Tokenizer::Token& token);
-    void readOpenTag(Tag* operand);
+    Tokenizer::Token token;
+    void nextToken();
+    void prevToken();
+    Tag* readOpenTag();
+    void readCloseTag(Tag* operand);
 };
-
+/*
+    GRAMMAR
+    expression := (Tag_expression|value), (expression |  "")
+    Tag_expr := open_tag, [expression], close_tag
+    value := number;
+    open_tag := "<", string, [attribute], ">";
+    close_tag := "<", "/" ,string, ">";
+    atribute := ' " ', value | string ,' " ';
+*/
 #endif 

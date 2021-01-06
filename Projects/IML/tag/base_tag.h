@@ -12,8 +12,8 @@ class Tag {
     {
         values.splice(values.end(), tmp);
     }
-    //values.splice(values.end(), tmp);
     protected:
     std::list<double> values;
+    std::string type;
 };
 #endif

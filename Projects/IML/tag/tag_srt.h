@@ -8,7 +8,6 @@ class Tag_srt : public Tag
     Tag_srt(std::string type, double attribute);
     Tag_srt(std::string type, std::string attribute);
     private:
-    std::string type;
     double numAttribute;
     std::string strAttribute;
     std::list<double> calculate(std::string type, double numAttribute, std::string strAttribute);

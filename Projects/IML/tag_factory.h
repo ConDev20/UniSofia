@@ -19,7 +19,6 @@ class Factory_Tag
         {
             tag = new Tag_agg(oper);
         }
-        
         return tag;
     }
     static Tag* createAtrTag(std::string oper,std::string attribute)
