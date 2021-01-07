@@ -1,6 +1,6 @@
 #include "tokenizer.h"
 #include <cassert>
-Tokenizer::Tokenizer(std::istream &_in) :in(_in){}
+Tokenizer::Tokenizer(std::istream &_in):in(_in){}
 void Tokenizer::nextToken()
 {   
     Tokenizer::Token result({Tokenizer::Token::TokenType::unknown,-1.00,"NULL"});

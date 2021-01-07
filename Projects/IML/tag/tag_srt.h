@@ -1,5 +1,5 @@
-#ifndef _TAG_SRT
-#define _TAG_SRT
+#ifndef _TAG_SRT_H
+#define _TAG_SRT_H
 #include "base_tag.h"
 class Tag_srt : public Tag
 {
@@ -10,7 +10,7 @@ class Tag_srt : public Tag
     private:
     double numAttribute;
     std::string strAttribute;
-    std::list<double> calculate(std::string type, double numAttribute, std::string strAttribute);
+    std::list<double> calculate(std::string type);
 };
 
 #endif

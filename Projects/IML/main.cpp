@@ -1,29 +1,7 @@
-#include "tokenizer.h"
-#include "evaluator.h"
-#include <iostream>
-#include <vector>
-// Opravi go da e po hubavo
-void print(std::list<double> const &list)
-{
-    std::cout << std::endl;
-    for (auto const& i: list) {
-        std::cout << i << " ";
-    }
-}
+#include "interpreter.h"
 int main()
 {
-    std::ifstream my_file;
-    my_file.open("input.txt");
-    if (!my_file) {
-		std::cout << "File not created!";
-	}
-    Tokenizer tokenizer(my_file);
-    while (tokenizer.moreTokens())
-    {
-        tokenizer.nextToken();
-    }
-    Evaluator something(tokenizer.getTokens());
-    print(something.evaluate());
-    my_file.close();
+    Interpreter program("IO files/input.txt","IO files/output.txt");
+    program.interpretate();
     return 0;
 }

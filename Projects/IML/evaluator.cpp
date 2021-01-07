@@ -27,7 +27,7 @@ void Evaluator::prevToken()
     token = *(--iter);
 }
 std::list<double> Evaluator::evaluate()
-{
+{ 
     std::list<double> values;
     /// Base case
     if(iter == storage.end())
@@ -99,8 +99,7 @@ void Evaluator::readCloseTag(Tag* operand)
     nextToken();
     assert(token.type == Tokenizer::Token::Slash);
     nextToken();
-    assert(token.type == Tokenizer::Token::oper);
-    // assert(token.text == operand.type.text;)
+    if(token.text != operand->getType()) throw std::runtime_error("Close tag doesn't correspond to Open tag");
     nextToken();
     assert(token.type == Tokenizer::Token::closeTag);
     nextToken();

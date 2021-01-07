@@ -1,5 +1,5 @@
-#ifndef _TAG_FACTORY_
-#define _TAG_FACTORY_
+#ifndef _TAG_FACTORY_H
+#define _TAG_FACTORY_H
 #include "tag/tag_agg.h"
 #include "tag/tag_map.h"
 #include "tag/tag_srt.h"

@@ -1,5 +1,5 @@
-#ifndef _TAG_MAP_
-#define _TAG_MAP_
+#ifndef _TAG_MAP_H
+#define _TAG_MAP_H
 #include "base_tag.h"
 
 class Tag_map : public Tag
@@ -8,7 +8,7 @@ class Tag_map : public Tag
     std::list<double> get_result();
     Tag_map(std::string type, double attribute);
     private:
-    double attribute;
-    void calculate(std::string type, double attribute);
+    double numAttribute;
+    std::list<double> calculate(std::string type);
 };
 #endif

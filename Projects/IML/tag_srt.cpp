@@ -2,7 +2,7 @@
 #include <set>
 std::list<double> Tag_srt::get_result()
 {
-    return calculate(type, numAttribute, strAttribute);
+    return calculate(type);
 }
 Tag_srt::Tag_srt(std::string type, double attribute)
 {
@@ -16,7 +16,7 @@ Tag_srt::Tag_srt(std::string type, std::string attribute)
     numAttribute = -1;
     strAttribute = attribute;
 }
-std::list<double> Tag_srt::calculate(std::string type, double numAttribute, std::string strAttribute)
+std::list<double> Tag_srt::calculate(std::string type)
 {
     if(type == "SRT-REV")
     {

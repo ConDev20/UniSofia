@@ -1,5 +1,5 @@
-#ifndef _TAG_AGG_
-#define _TAG_AGG
+#ifndef _TAG_AGG_H
+#define _TAG_AGG_H
 #include "base_tag.h"
 class Tag_agg : public Tag
 {
