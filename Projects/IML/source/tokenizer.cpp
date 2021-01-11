@@ -1,4 +1,4 @@
-#include "tokenizer.h"
+#include "../headers/tokenizer.h"
 #include <cassert>
 Tokenizer::Tokenizer(std::istream &_in):in(_in){}
 void Tokenizer::nextToken()
@@ -48,7 +48,7 @@ void Tokenizer::nextToken()
         result.text = in.get();//in >> result.c;
         isString == false ? isString = true : isString = false;
     }else {
-        assert(false);
+        throw std::runtime_error("Unknown character"); 
     }
     storage.push_back(result);
 }
@@ -72,21 +72,6 @@ std::ostream& operator<<(std::ostream& os, const Tokenizer::Token& result)
     os << result.type << " ,";
     os << result.numval<< " ,";
     os << result.text<< " ,";
-    // os << result.num_attribute<< " ,";
 
     return os;
-}
-// Tokenizer& operator>>(Tokenizer& tokenizer, Tokenizer::Token& result)
-// {
-//     result = tokenizer.nextToken();
-//     return tokenizer;
-// }
-void Tokenizer::displayStorage() const
-{
-    auto iter = storage.begin();
-    for (iter ; iter != storage.end(); ++iter)
-    {
-        std::cout <<"[ " << *iter << " ] ";
-        std::cout << std::endl;
-    }
 }

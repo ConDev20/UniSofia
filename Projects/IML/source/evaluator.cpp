@@ -1,4 +1,4 @@
-#include "evaluator.h"
+#include "../headers/evaluator.h"
 #include <assert.h>
 Evaluator::Evaluator(std::list<Tokenizer::Token> tokens)
 {
@@ -64,6 +64,7 @@ std::list<double> Evaluator::evaluate()
     values.splice(values.end(), evaluate());
     return values;
 }
+///Reading open tag
 Tag* Evaluator::readOpenTag()
 {
     Tag* operand;
@@ -81,7 +82,7 @@ Tag* Evaluator::readOpenTag()
             operand = Factory_Tag::createAtrTag(operType,token.text);
         } else if(token.type == Tokenizer::Token::number) {
             operand = Factory_Tag::createNumAtrTag(operType,token.numval);
-        } else { assert(false); } /// Problem with attribute input
+        } else { throw std::runtime_error("Unknown attribute input"); }
         nextToken();
         assert(token.type == Tokenizer::Token::doubleQuotes);
     }else{
@@ -93,13 +94,16 @@ Tag* Evaluator::readOpenTag()
     nextToken();
     return operand;
 }
+///Reading close tag
 void Evaluator::readCloseTag(Tag* operand)
-{   
+{
     assert(token.type == Tokenizer::Token::openTag);
     nextToken();
     assert(token.type == Tokenizer::Token::Slash);
     nextToken();
-    if(token.text != operand->getType()) throw std::runtime_error("Close tag doesn't correspond to Open tag");
+    if(token.text != operand->getType()) { 
+        throw std::runtime_error("Close tag doesn't correspond to Open tag"); 
+    }
     nextToken();
     assert(token.type == Tokenizer::Token::closeTag);
     nextToken();

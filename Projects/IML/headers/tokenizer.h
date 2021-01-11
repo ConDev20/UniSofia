@@ -1,6 +1,5 @@
 #ifndef _TOKENIZER_H
 #define _TOKENIZER_H
-// #include "evaluator.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -36,6 +35,5 @@ class Tokenizer
     std::istream &in;
     void clearWhiteSpace();
 };
-Tokenizer& operator>>(Tokenizer&, Tokenizer::Token&);
 std::ostream& operator<<(std::ostream& os,const Tokenizer::Token& result);
 #endif

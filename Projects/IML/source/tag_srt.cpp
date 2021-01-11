@@ -1,4 +1,4 @@
-#include "tag/tag_srt.h"
+#include "../headers/tag/tag_srt.h"
 #include <set>
 std::list<double> Tag_srt::get_result()
 {
@@ -51,6 +51,10 @@ std::list<double> Tag_srt::calculate(std::string type)
                 ++iter;
             }
         }
+    }else
+    {
+        throw std::runtime_error("Unknown operation for class Sort");
     }
+    
     return values;
 }

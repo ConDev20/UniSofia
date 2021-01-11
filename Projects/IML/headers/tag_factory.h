@@ -18,12 +18,15 @@ class Factory_Tag
         } else if (firstThree == "AGG")
         {
             tag = new Tag_agg(oper);
+        }else
+        {
+            throw std::runtime_error("Unknown operator");
         }
         return tag;
     }
     static Tag* createAtrTag(std::string oper,std::string attribute)
     {
-        Tag* tag = new Tag_srt(oper,attribute);
+        Tag* tag = new Tag_srt(oper, attribute);
         return tag;
     }
     static Tag* createNumAtrTag(std::string oper, double attribute)
@@ -36,6 +39,9 @@ class Factory_Tag
         } else if (firstThree == "MAP")
         {
             tag = new Tag_map(oper, attribute);
+        }else
+        {
+            throw std::runtime_error("Unknown operator");
         }
         return tag;
     }

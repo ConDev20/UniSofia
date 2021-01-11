@@ -1,4 +1,4 @@
-#include "tag/tag_agg.h"
+#include "../headers/tag/tag_agg.h"
 std::list<double> Tag_agg::get_result()
 {
     return calculate(type);
@@ -29,13 +29,16 @@ std::list<double> Tag_agg::calculate(std::string type)
             result += num;
         }
         result /= counter;
-    } else if(type == "AGG-FST") {
+    } else if(type == "AGG-FST") 
+    {
         result = values.front();
-    } else if(type == "AGG-LST") {
+    } else if(type == "AGG-LST") 
+    {
         result = values.back();
-    } else {
-        assert(false);
+    } else 
+    {
+        throw std::runtime_error("Unknown operation for class Aggregate");
     }
-    std::list<double> list(1,result); // CHECK IF GOOD
+    std::list<double> list(1,result);
     return list;
 }

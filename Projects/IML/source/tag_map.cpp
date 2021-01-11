@@ -1,4 +1,4 @@
-#include "tag/tag_map.h"
+#include "../headers/tag/tag_map.h"
 
 std::list<double> Tag_map::get_result()
 {
@@ -25,6 +25,10 @@ std::list<double> Tag_map::calculate(std::string type)
         {
             *iter *= numAttribute;
         }
+    }else
+    {
+        throw std::runtime_error("Unknown operation for class Map");
     }
+    
     return values;
 }

@@ -9,7 +9,6 @@ class Evaluator
     Evaluator(std::list<Tokenizer::Token> tokens);
     void displayStorage();
     std::list<double> evaluate();
-
     private:
     std::list<Tokenizer::Token> storage;
     std::list<Tokenizer::Token>::iterator iter;
@@ -18,14 +17,16 @@ class Evaluator
     void prevToken();
     Tag* readOpenTag();
     void readCloseTag(Tag* operand);
+    bool checkForBody();
+    void readBodyTag(Tag* operand, std::list<double> list);
 };
 /*
     GRAMMAR
-    expression := (Tag_expression|value), (expression |  "")
-    Tag_expr := open_tag, [expression], close_tag
-    value := number;
-    open_tag := "<", string, [attribute], ">";
-    close_tag := "<", "/" ,string, ">";
-    atribute := ' " ', value | string ,' " ';
+    expression ::= (Tag_expression|value), (expression |  "")
+    Tag_expr ::= open_tag, [expression], close_tag
+    value ::= number;
+    open_tag ::= "<", string, [attribute], ">";
+    close_tag ::= "<", "/" , string, ">";
+    atribute ::= ' " ', value | string ,' " ';
 */
 #endif 
