@@ -1,0 +1,200 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[bulgarian]{babel}
+\usepackage{float}
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Проект по небесна механика}
+\author{Константин Стефанов Константинов, 81993 Компютърни науки}
+\date{05.07.2021}
+\begin{document}
+\maketitle
+
+% \begin{abstract}
+% Your abstract.
+% \end{abstract}
+
+\section{Пресметнете координатите и скоростите на планетите в деня, в който сте родени.}
+
+
+\noindent Kакво ни е дадено:
+
+\noindent Координатите на планета J от Слънчевата система се задават със следната формула: 
+\begin{equation}
+\begin{pmatrix}
+x \\
+y \\
+z \\
+\end{pmatrix} = 
+\begin{pmatrix}
+\cos(\theta) & -\sin(\theta) & 0 \\
+\sin(\theta) & \cos(\theta) & 0 \\
+0  & 0  & 1  \\
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & \cos(i) & -\sin(i) \\
+0  & \sin(i)  & \cos(i)  \\
+\end{pmatrix}
+\begin{pmatrix}
+\cos(g) & -\sin(g) & 0 \\
+\sin(g) & \cos(g) & 0 \\
+0  & 0  & 1  \\
+\end{pmatrix}
+\begin{pmatrix}
+a(\cos(u) - e)\\
+a\sqrt{1-e^2} \sin(u)\\
+0\\
+\end{pmatrix}
+\end{equation}
+където (a, e, i, $t_0$, g, $ \theta $) са шестте орбитални елементи на планетата :
+
+\begin{itemize}
+   \item  a - дължина на перихелия
+   \item  e - ексцентрицитет
+   \item  i - наклоненост на планетата
+   \item  $t_0$ - момент на преминаване през перихелия
+   \item  g - аргумент на перихелия
+   \item  $ \theta $ - дължина на възела
+\end{itemize}
+\noindent Данните за тези константи са взети от \href{https://ssd.jpl.nasa.gov/txt/aprx_pos_planets.pdf}{тук}.\\
+$ \mu_j $ - относителната маса на дадена планета \\
+u - ексцентрична аномалия \\
+l - средна аномалия \\
+$t_b$ - времето в години от 2000г. до рождената дата.\\
+
+\noindent Изчисляваме g по формулата : $g = \Tilde{w} - \theta $, където $\Tilde{w}$ е $\Omega$ от таблицата.\\
+В сила е уравнението на Кеплер: l = u - e.$sin{u}$\\
+За намирането на l извършваме следните изчисления:\\
+Намираме $l_{(2000)} = L_{2000} - g - \theta$ \\
+l(средна аномалия) = $n . t_b + l_{(2000)} $  \\
+
+\noindent От безкрайната рекурентна формула: $u= l + e.sin(l+e.sin(...))$ изчисляваме ексцентричната аномалия.
+\begin{equation}
+v = Q * \frac{an}{1- e.cos(u)}*
+\begin{pmatrix}
+a(\cos(u) - e)\\
+a\sqrt{1-e^2} \sin(u)\\
+0\\
+\end{pmatrix}
+\end{equation}, където Q е от основната формула на сферичната тригонометрия.\\
+
+В следващата страница са представени таблица с резултатите от пресмятанията за координатите и скоростите на планетите, както и стойността на $\mu$ за тях.
+\clearpage
+
+\begin{center}
+ \begin{tabular}{||c | c||} 
+ \hline
+ Планетa & $\mu$  \\ [0.5ex] 
+ \hline\hline
+ Меркурий & 1/6023600 \\ 
+ \hline
+ Венера & 1/408523  \\
+ \hline
+ Земя & 1/328900  \\
+ \hline
+ Марс & 1/3098708  \\
+ \hline
+ Юпитер & 1/1047,34 \\
+ \hline
+ Сатурн & 1/3497,8  \\
+ \hline
+ Уран & 1/22902,9  \\
+ \hline
+ Нептун & 1/19042  \\
+ \hline
+ Плутон & 1/135000000  \\[1ex]
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/plantes_data.png}
+\end{figure}
+
+\section{Пресметнете координатите и скоростите на планетите в деня, в който сте родени.}
+Eлементите на Делоне (L, G, $\Theta$, l, g, $\theta$), където L, G и $\Theta$ се изразяват чрез орбиталните елементи : \\
+
+\setlength{\tabcolsep}{30pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1.5} % Default value: 1
+
+\begin{center}
+\begin{tabular}{ c |  c  | c } 
+
+ $L = \mu \sqrt{\gamma} \sqrt{a} $   & $L - G = \mu \sqrt{\gamma} \sqrt{a}(1-\sqrt{1-e^2})$ & $G - \Theta = \mu  \sqrt{\gamma}  \sqrt{a}  \sqrt{1-e^2} (1- cos(i)) $ \\ 
+
+\end{tabular}
+\end{center}
+
+\noindentкъдето $\gamma = \sqrt{1+\mu}$ \\
+
+
+\setlength{\tabcolsep}{6pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1} % Default value: 1
+\noindent Елементите на Поанкaре от първи вид се изразяват чрез елементите на Делоне:\\
+\begin{center}
+\begin{tabular}{ c   c   c } 
+    &(L, L-G, $G-\Theta$, $\lambda $, $\Tilde{w}$, $\Omega$)&
+\end{tabular}
+\end{center}
+$\lambda = l + g + \theta$\\
+$\Tilde{w} = g + \theta$\\
+$\Omega = \theta$\\
+
+\noindentЕлементите на Поанкaре от втори вид се изразяват чрез тези от първи:\\
+\setlength{\tabcolsep}{6pt} % Default value: 6pt
+\renewcommand{\arraystretch}{2} % Default value: 1
+\begin{center}
+\begin{tabular}{ c   c   c } 
+    &$L=L$&\\
+    &$\xi=\sqrt{2(L-G)}\cos{g+\theta}$&\\
+    &$p=\sqrt{2(G-\Theta})\cos{\theta}$&\\
+    &$\lambda = l+g+\theta$&\\
+    &$\eta=-\sqrt{2(L-G})\sin{g+\theta}$&\\
+    &$q=-\sqrt{2(G-\Theta})\sin{\theta}$&\\
+\end{tabular}
+\end{center}
+
+\setlength{\parskip}{10em}
+\noindentВ следващите страници са представени таблици с резултатите от пресмятанията на елементите на Делоне и Поанкаре от първи и втори вид за всички планети, както и код от програмата.\\
+
+\noindent\textbf{Елементи на Делоне и Поанкре от първи и втори вид:}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{figures/Picture1.png}
+\end{figure}\\
+\newpage
+
+\noindent\textbf{Код от задача 1:}\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{figures/1.2.png}
+\end{figure}
+
+\newpage
+
+\noindent\textbf{Код от задача 2:}\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{figures/2.1.png}
+\end{figure}
+ 
+\newpage
+\noindent\textbf{Спомагателни функции за двете задачи:}\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{figures/4.png}
+\end{figure}
+
+ 
+\end{document}
